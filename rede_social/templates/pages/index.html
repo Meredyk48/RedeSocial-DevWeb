@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - Postagens</title>
+</head>
+
+<body style="justify-content: center;">
+
+    <h1> Postagens </h1>
+
+    {% for post in posts %}
+    <div class="post">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        <p><strong>Usuário:</strong> {{ post.user }}</p>
+        <p><strong>Data:</strong> {{ post.created_at|date:'d/m/Y H:m' }}</p>
+    </div>
+    {% endfor %}
+
+</body>
+
+</html>
