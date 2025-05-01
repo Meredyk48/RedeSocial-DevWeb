@@ -1,0 +1,28 @@
+<q-drawer v-model="leftDrawerOpen" show-if-above bordered :width="250">
+    <q-list>
+        <q-item-label header>
+            Amigos
+        </q-item-label>
+        <!-- Exemplo de amigo - Idealmente viria do backend -->
+        <q-item clickable v-ripple>
+            <q-item-section avatar>
+                <q-avatar>
+                    <img src="https://cdn.quasar.dev/img/avatar1.jpg">
+                </q-avatar>
+            </q-item-section>
+            <q-item-section>
+                Amigo Exemplo 1
+            </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple>
+            <q-item-section avatar>
+                <q-avatar>
+                    <img src="https://cdn.quasar.dev/img/avatar2.jpg">
+                </q-avatar>
+            </q-item-section>
+            <q-item-section>
+                Amigo Exemplo 2
+            </q-item-section>
+        </q-item>
+    </q-list>
+</q-drawer>

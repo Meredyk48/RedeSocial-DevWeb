@@ -1,155 +1,60 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+{% extends 'pages/includes/base.html' %} {% block title %}
+Rede Social - Página Inicial
+{% endblock %}
+{% block content %}
+<div id="q-app">
+    <q-layout view="lHh Lpr lFf">
+        {% include 'pages/includes/navbar.html' %}
+        {% include 'pages/includes/drawerLateral.html' %}
+        <q-page-container>
+            <q-page padding>
+                <div class="q-gutter-y-md column items-center">
+                    <!-- Área para adicionar postagens -->
+                    <q-card class="my-card">
+                        <q-card-section>
+                            <q-input filled autogrow placeholder="No que você está pensando?"></q-input>
+                        </q-card-section>
+                        <q-card-actions align="right">
+                            <q-btn flat round icon="image"></q-btn>
+                            <q-btn label="Postar" color="primary"></q-btn>
+                        </q-card-actions>
+                    </q-card>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rede Social - Quasar</title>
-
-    <!-- Quasar CDN Links -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/quasar@2.18.1/dist/quasar.prod.css" rel="stylesheet" type="text/css">
-
-    <style>
-        /* Estilos adicionais se necessário */
-        .my-card {
-            width: 100%;
-            max-width: 600px;
-            margin-bottom: 16px;
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Vue/Quasar App Container -->
-    <div id="q-app">
-        <q-layout view="lHh Lpr lFf">
-            <!-- Navbar -->
-            <q-header elevated>
-                <q-toolbar>
-                    <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer"></q-btn>
-                    <q-toolbar-title>
-                        Rede Social
-                    </q-toolbar-title>
-                    <!-- Links da Navbar (simplificado sem routing por enquanto) -->
-                    <q-btn flat label="Início"></q-btn>
-                    <q-btn flat label="Adicionar Amigos"></q-btn>
-                    <q-btn flat label="Conversas"></q-btn>
-                    <q-btn flat label="Postagens"></q-btn>
-                </q-toolbar>
-            </q-header>
-
-            <!-- Drawer Lateral (Amigos) -->
-            <q-drawer v-model="leftDrawerOpen" show-if-above bordered :width="250">
-                <q-list>
-                    <q-item-label header>
-                        Amigos
-                    </q-item-label>
-                    <!-- Exemplo de amigo - Idealmente viria do backend -->
-                    <q-item clickable v-ripple>
-                        <q-item-section avatar>
-                            <q-avatar>
-                                <img src="https://cdn.quasar.dev/img/avatar1.jpg">
-                            </q-avatar>
-                        </q-item-section>
-                        <q-item-section>
-                            Amigo Exemplo 1
-                        </q-item-section>
-                    </q-item>
-                     <q-item clickable v-ripple>
-                        <q-item-section avatar>
-                            <q-avatar>
-                                <img src="https://cdn.quasar.dev/img/avatar2.jpg">
-                            </q-avatar>
-                        </q-item-section>
-                        <q-item-section>
-                            Amigo Exemplo 2
-                        </q-item-section>
-                    </q-item>
-                    <!-- Adicionar mais amigos aqui -->
-                </q-list>
-            </q-drawer>
-
-            <!-- Conteúdo da Página -->
-            <q-page-container>
-                <q-page padding>
-                    <div class="q-gutter-y-md column items-center">
-                        <!-- Área para adicionar postagens -->
-                        <q-card class="my-card">
-                            <q-card-section>
-                                <q-input filled autogrow placeholder="No que você está pensando?"></q-input>
-                            </q-card-section>
-                            <q-card-actions align="right">
-                                <q-btn flat round icon="image"></q-btn>
-                                <q-btn label="Postar" color="primary"></q-btn>
-                            </q-card-actions>
-                        </q-card>
-
-                        <!-- Lista de Postagens (Renderizada pelo Django) -->
-                        {% for post in posts %}
-                        <q-card class="my-card">
-                            <q-item>
-                                <q-item-section avatar>
-                                    <q-avatar>
-                                        <!-- Idealmente, usar avatar do post.user -->
-                                        <img src="https://cdn.quasar.dev/img/boy-avatar.png">
-                                    </q-avatar>
-                                </q-item-section>
-                                <q-item-section>
-                                    <q-item-label>{{ post.user }}</q-item-label>
-                                    <q-item-label caption>{{ post.created_at|date:'d/m/Y H:i' }}</q-item-label>
-                                </q-item-section>
-                            </q-item>
-                            <q-card-section>
-                                <!-- Se houver título, adicionar aqui -->
-                                <!-- <div class="text-h6">{{ post.title }}</div> -->
-                                <div>{{ post.content }}</div>
-                            </q-card-section>
-                            <!-- Adicionar imagem se existir no post -->
-                            <!-- <q-img v-if="post.imageUrl" :src="post.imageUrl"></q-img> -->
-                            <q-separator />
-                            <q-card-actions align="around">
-                                <q-btn flat round color="primary" icon="thumb_up"></q-btn>
-                                <q-btn flat round color="primary" icon="comment"></q-btn>
-                                <q-btn flat round color="primary" icon="share"></q-btn>
-                            </q-card-actions>
-                        </q-card>
-                        {% empty %}
-                        <p>Nenhuma postagem ainda.</p>
-                        {% endfor %}
-                    </div>
-                </q-page>
-            </q-page-container>
-        </q-layout>
-    </div>
-
-    <!-- Vue.js e Quasar JS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/quasar@2.18.1/dist/quasar.umd.prod.js"></script>
-
-    <!-- Inicialização do Vue e Quasar -->
-    <script>
-        const { createApp, ref } = Vue
-
-        const app = createApp({
-            setup() {
-                const leftDrawerOpen = ref(false)
-
-                return {
-                    leftDrawerOpen,
-                    toggleLeftDrawer() {
-                        leftDrawerOpen.value = !leftDrawerOpen.value
-                    }
-                    // Adicionar mais lógica Vue aqui se necessário
-                }
-            }
-        })
-
-        app.use(Quasar)
-        app.mount('#q-app')
-    </script>
-
-</body>
-
-</html>
-
+                    <!-- Lista de Postagens (Renderizada pelo Django) -->
+                    {% for post in posts %}
+                    <q-card class="my-card">
+                        <q-item>
+                            <q-item-section avatar>
+                                <q-avatar>
+                                    <!-- Idealmente, usar avatar do post.user -->
+                                    <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+                                </q-avatar>
+                            </q-item-section>
+                            <q-item-section>
+                                <q-item-label>{{ post.user }}</q-item-label>
+                                <q-item-label caption>{{ post.created_at|date:'d/m/Y H:i' }}</q-item-label>
+                            </q-item-section>
+                        </q-item>
+                        <q-card-section>
+                            <!-- Se houver título, adicionar aqui -->
+                            <!-- <div class="text-h6">{{ post.title }}</div> -->
+                            <div>{{ post.content }}</div>
+                        </q-card-section>
+                        <!-- Adicionar imagem se existir no post -->
+                        <!-- <q-img v-if="post.imageUrl" :src="post.imageUrl"></q-img> -->
+                        <q-separator />
+                        <q-card-actions align="around">
+                            <q-btn flat round color="primary" icon="thumb_up"></q-btn>
+                            <q-btn flat round color="primary" icon="comment"></q-btn>
+                            <q-btn flat round color="primary" icon="share"></q-btn>
+                        </q-card-actions>
+                    </q-card>
+                    {% empty %}
+                    <p>Nenhuma postagem ainda.</p>
+                    {% endfor %}
+                </div>
+            </q-page>
+        </q-page-container>
+    </q-layout>
+</div>
+{% endblock %}
